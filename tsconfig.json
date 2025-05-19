@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                    // Väljundi JavaScripti versioon
+    "module": "CommonJS",              // Või "ESNext", sõltuvalt vajadusest
+    "rootDir": "src",                  // Lähtefailide kaust
+    "outDir": "dist",                  // Kompileeritud failide sihtkaust
+    "strict": true,                    // Tugev tüübikontroll
+    "esModuleInterop": true,           // CommonJS ja ES module koostöö
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"],             // Kaasa kõik .ts/.tsx failid src kaustast
+}
