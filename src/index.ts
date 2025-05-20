@@ -31,8 +31,6 @@ const __dirname: string = import.meta.dirname;
 		}
 	};
 
-console.log(client.commands);
-
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	console.log(interaction.commandName);
