@@ -1,4 +1,4 @@
-# Discord Ticket Bot
+# Discord template bot
 
 A simple Discord bot template written in TypeScript using [discord.js](https://discord.js.org/). Easily extendable by adding your own slash commands.
 
