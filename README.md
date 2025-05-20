@@ -47,7 +47,7 @@ All commands are located in the [`src/commands`](src/commands) folder. Each comm
 
 **Example command file:**
 
-````typescript
+```typescript
 // filepath: src/commands/hello.ts
 import { SlashCommandBuilder } from "discord.js";
 
@@ -58,6 +58,4 @@ export default {
     async execute(interaction: any) {
         await interaction.reply("Hello there!");
     }
-}
-
-Gerten Pilv
+}```
