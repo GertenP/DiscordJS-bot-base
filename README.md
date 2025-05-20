@@ -33,7 +33,7 @@ A simple Discord bot template written in TypeScript using [discord.js](https://d
 
 2. **Deploy commands to Discord:**
    ```sh
-   node src/deploy-commands.js
+   node dist/deploy-commands.js
    ```
 
 3. **Start the bot:**
