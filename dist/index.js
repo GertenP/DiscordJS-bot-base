@@ -1,13 +1,34 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const discord_js_1 = require("discord.js");
-const dotenv_1 = require("dotenv");
-(0, dotenv_1.config)({ path: "./src/.env" });
+import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
+import { config } from "dotenv";
+import fs from "fs";
+import path from "path";
+config({ path: "./src/.env" });
 const token = process.env.TOKEN || "";
-const client = new discord_js_1.Client({
-    intents: [discord_js_1.GatewayIntentBits.Guilds]
+if (token === "") {
+    console.error("Token is not defined in .env file");
+}
+;
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds]
 });
-client.once(discord_js_1.Events.ClientReady, readyClient => {
+client.commands = new Collection();
+const __dirname = import.meta.dirname;
+const commands = fs.readdirSync(path.join(__dirname, "commands")).filter(file => file.endsWith(".js"));
+for (const file of commands) {
+    const commandModule = await import("file://" + path.join(__dirname, "commands", file));
+    const command = commandModule.default;
+    console.log(command);
+    if ("data" in command && "execute" in command) {
+        client.commands.set(command.data.name, command);
+        console.log("Läks läbi");
+    }
+    else {
+        console.log("Midagi jäi puudu");
+    }
+}
+;
+console.log(client.commands);
+client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 client.login(token);
