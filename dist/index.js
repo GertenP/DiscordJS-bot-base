@@ -17,7 +17,6 @@ const commands = fs.readdirSync(path.join(__dirname, "commands")).filter(file =>
 for (const file of commands) {
     const commandModule = await import("file://" + path.join(__dirname, "commands", file));
     const command = commandModule.default;
-    console.log(command);
     if ("data" in command && "execute" in command) {
         client.commands.set(command.data.name, command);
         console.log("Läks läbi");
@@ -28,6 +27,11 @@ for (const file of commands) {
 }
 ;
 console.log(client.commands);
+client.on(Events.InteractionCreate, async (interaction) => {
+    if (!interaction.isChatInputCommand())
+        return;
+    console.log(interaction.commandName);
+});
 client.once(Events.ClientReady, readyClient => {
     console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
