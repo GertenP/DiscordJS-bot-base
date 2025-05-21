@@ -4,6 +4,7 @@ import { config } from "dotenv";
 
 config({ path: "./src/.env" });
 const moderator_role: string = process.env.MODERATOR_ROLE_ID || ""; 
+const categoryId: string = process.env.TICKET_CATEGORY_ID || "";
 
 export async function ticketModalSubmit(interaction: any) {
     if (interaction.customId === "ticket_modal") {
@@ -12,9 +13,11 @@ export async function ticketModalSubmit(interaction: any) {
         const problem_description: string = interaction.fields.getTextInputValue("description");
         const username_sanitized = [...user].filter(i => /^[a-zA-Z0-9-]$/.test(i)).join("");
         const ticket_category = process.env.TICKET_CATEGORY_ID;
+        const channel_name: string = `${username_sanitized}-ticket`;
+
         try {
             const ticket_channel = await interaction.guild?.channels.create({
-                name: `${username_sanitized}-ticket`,
+                name: channel_name,
                 parent: ticket_category,
                 permissionOverwrites: [
                     {
