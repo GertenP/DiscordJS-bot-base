@@ -6,7 +6,6 @@ import { ticketModalSubmit } from "./events/ticketModalSubmit.js";
 import { closeTicketInteraction } from "./events/closeTicketInteraction.js";
 config({ path: "./src/.env" });
 const token = process.env.TOKEN || "";
-const moderator_role = process.env.MODERATOR_ROLE_ID || "";
 if (token === "") {
     console.error("Token is not defined in .env file");
 }
@@ -22,17 +21,14 @@ for (const file of commands) {
     const command = commandModule.default;
     if ("data" in command && "execute" in command) {
         client.commands.set(command.data.name, command);
-        console.log("Läks läbi");
     }
     else {
-        console.log("Midagi jäi puudu");
+        console.log("Loading commands went wrong");
     }
 }
 ;
-console.log(client.commands);
 client.on(Events.InteractionCreate, async (interaction) => {
     if (interaction.isChatInputCommand()) {
-        console.log(interaction.commandName);
         const command = client.commands.get(interaction.commandName);
         if (command) {
             await command.execute(interaction);

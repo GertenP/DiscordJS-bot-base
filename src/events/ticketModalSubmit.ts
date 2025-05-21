@@ -46,6 +46,7 @@ export async function ticketModalSubmit(interaction: any) {
                 .setStyle(ButtonStyle.Danger);
 
             if (ticket_channel) {
+                await ticket_channel.send(`<@${interaction.user.id}>`)
                 await ticket_channel.send({
                     embeds: [embed],
                     components: [new ActionRowBuilder().addComponents(close_button).toJSON()],
